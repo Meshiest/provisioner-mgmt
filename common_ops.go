@@ -5,12 +5,17 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"reflect"
+	"strings"
 
 	"github.com/VictorLowther/jsonpatch"
 	"github.com/gin-gonic/gin"
 )
 
 func listThings(c *gin.Context, thing keySaver) {
+	objType := strings.ToUpper(reflect.TypeOf(thing).Name())
+	fmt.Println("Type is" + objType)
+
 	things := backend.list(thing)
 	res := make([]interface{}, len(things))
 	for i, obj := range things {
